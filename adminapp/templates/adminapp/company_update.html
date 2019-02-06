@@ -1,0 +1,17 @@
+{% extends 'adminapp/base.html' %}
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+    </form>
+    <button class="btn btn-round form-control last">
+        <a href="{% url 'adminapp:companies' %}">
+            К списку компаний
+        </a>
+    </button>
+{% endblock %}

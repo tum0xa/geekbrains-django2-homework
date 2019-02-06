@@ -1,0 +1,12 @@
+{% extends 'adminapp/base.html' %}
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+    <h1>Товар "{{ object.name }}"</h1>
+    <div class="col-4">
+    <img class="img-fluid" src="{{ object.image.url }}">
+    </div>
+    <p>Цена: {{ object.price }} рублей</p>
+{% endblock %}

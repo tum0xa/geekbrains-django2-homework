@@ -1,0 +1,16 @@
+{%  for basketproduct in basket_items %}
+    {% csrf_token %}
+    <tr>
+        <td class="pro-thumbnail"><a href="{% url 'mainapp:product_view' basketproduct.product.category.slug basketproduct.product.slug %}"><img src="{{ basketproduct.product.image.url }}" alt="item" /></a></td>
+        <td class="pro-title"><a href="{% url 'mainapp:product_view' basketproduct.product.category.slug basketproduct.product.slug %}">{{ basketproduct.product.name }}</a></td>
+        <td class="pro-price"><span class="amount">{{ basketproduct.product.price|floatformat:0 }}</span></td>
+        <td class="pro-quantity"><div class="pro-qty">
+            <span class="dec qtybtn" data-pk="{{ basketproduct.pk }}"><i class="ti-minus" data-pk="{{ basketproduct.pk }}"></i></span>
+            <input type="text" data-pk="{{ basketproduct.pk }}" min="0" value="{{ basketproduct.quantity }}">
+            <span class="inc qtybtn" data-pk="{{ basketproduct.pk }}"><i class="ti-plus" data-pk="{{ basketproduct.pk }}"></i></span>
+        </div></td>
+
+        <td class="pro-subtotal">{{ basketproduct.subtotal|slice:":-3" }}</td>
+        <td class="pro-remove"><a data-remove="{{ basketproduct.pk }}">×</a></td>
+    </tr>
+{% endfor %}

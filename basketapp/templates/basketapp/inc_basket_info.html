@@ -1,0 +1,6 @@
+{% load  static %}
+<a href="{% url 'basket:view' %}"><img src="{% static 'images/icons/cart.png' %}" alt="Cart">
+{% if basket %}
+    <span>{{ basket.quantity }} ({{ basket.total }} <i class="fa fa-rub"></i>)</span>
+{% endif %}
+</a>

@@ -1,0 +1,76 @@
+{%  extends 'mainapp/base.html' %}
+{% load static %}
+{% load my_tags %}
+{% block title %}
+    Список желаемого. Интернет-магазин развивающих игрушек.
+{%  endblock %}
+
+
+{% block content %}
+<!-- Product Section Start -->
+<div class="product-section section mt-80 mt-lg-60 mt-md-60 mt-sm-60 mt-xs-40 mb-40 mb-lg-20 mb-md-20 mb-sm-20 mb-xs-0">
+    <div class="container">
+
+        <div class="row">
+            <div class="section-title text-center col mb-30">
+                <h1>Список желаемых игрушек</h1>
+                <p>То, что вы отложили</p>
+            </div>
+        </div>
+
+        <div class="row">
+
+
+            {% if wishlist_items %}
+                {% for object in wishlist_items %}
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-40">
+
+                        <div class="product-item">
+                            <div class="product-inner">
+                                <div class="image">
+                                    {% if object.product.image %}
+                                        <img src="{{ object.product.image.url }}" alt="{{ object.product.text_alt }}">
+                                    {% else %}
+                                        <img src="{% static 'images/dummy.jpg' %}" alt="Dummy">
+                                    {% endif %}
+
+                                    <div class="image-overlay">
+                                        <div class="action-buttons">
+                                            <button class="add_to_cart" data-pk="{{ object.product.pk }}">в корзину</button>
+                                            <button class="remove_from_wishlist" data-pk="{{ object.product.pk }}">удалить</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="content">
+
+                                    <div class="content-left">
+                                        {% show_ratting object.product.ratting %}
+                                        <h4 class="title"><a href="{%  url 'mainapp:product_view' object.product.category.slug object.product.slug %}">{{ object.product.name }}</a></h4>
+
+                                        <h5 class="size">Возраст: <span>{{ object.product.age }}</span>
+                                        <h5 class="color"><span style="background-color: #ffb2b0"></span><span style="background-color: #0271bc"></span><span style="background-color: #efc87c"></span><span style="background-color: #00c183"></span></h5>
+                                    </div>
+
+                                    <div class="content-right">
+                                        <div class="price">{{ object.product.price|floatformat:0 }} <i class="fa fa-rub"></i></div>
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                {%  endfor %}
+            {% else %}
+                Пусто
+            {% endif %}
+        </div>
+
+    </div>
+</div><!-- Product Section End -->
+{% endblock %}

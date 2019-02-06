@@ -1,0 +1,16 @@
+{% extends 'adminapp/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <div>
+        <form method="post">{% csrf_token %}
+            <p>Вы действительно хотите удалить "{{ object }}"?</p>
+            <input type="submit" value="Удалить">
+        </form>
+        <button class="btn btn-success">
+            <a href="{% url 'adminapp:companies' %}">
+                Отмена
+            </a>
+        </button>
+    </div>
+{% endblock %}

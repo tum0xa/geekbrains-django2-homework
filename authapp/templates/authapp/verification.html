@@ -1,0 +1,25 @@
+{% extends 'mainapp/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="product-section section mt-80 mt-lg-60 mt-md-60 mt-sm-60 mt-xs-40 mb-40 mb-lg-20 mb-md-20 mb-sm-20 mb-xs-0">
+    <div class="container">
+        <div class="row">
+            <div class="section-title text-center col mb-30">
+    {% if user %}
+        <h3>Поздравляем!</h3>
+        <br>
+        <h4>Пользователь {{user.username}} подтвержден!</h4>
+    {% else %}
+        <h3>Верификация не пройдена!</h3>
+    {% endif %}
+
+    <br>
+    <button class="btn btn-round form-control">
+        <a href="{% url 'main' %}" class="">На главную</a>
+    </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

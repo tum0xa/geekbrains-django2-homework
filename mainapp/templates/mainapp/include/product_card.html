@@ -1,0 +1,46 @@
+{%  load static %}
+{% load my_tags %}
+<div class="col-xl-3 col-lg-4 col-md-6 col-12 mb-40">
+
+    <div class="product-item" >
+
+        <div class="product-inner">
+            <div class="image">
+                {% if object.image %}
+                    <img src="{{ object.image.url }}" alt="{{ object.text_alt }}">
+                {% else %}
+                    <img src="{% static 'images/dummy.jpg' %}" alt="Dummy">
+                {% endif %}
+
+                <div class="image-overlay">
+                    <div class="action-buttons">
+                        <button class="add_to_cart" data-pk="{{ object.pk }}">в корзину</button>
+                        <button class="add_to_wishlist" data-pk="{{ object.pk }}">в желаемое</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="content">
+
+                <div class="content-left">
+                    <h4 class="title"><a href="{%  url 'mainapp:product_view' object.category.slug object.slug %}">{{ object.name }}</a></h4>
+                    {% show_ratting object.ratting %}
+                    <h5 class="size">Возраст: <span>{{ object.age }}</span>
+                    <h5 class="color"><span style="background-color: #ffb2b0"></span><span style="background-color: #0271bc"></span><span style="background-color: #efc87c"></span><span style="background-color: #00c183"></span></h5>
+                </div>
+
+                <div class="content-right prod_price">
+                    <span class="money price">{{ object.price|floatformat:0}} <i class="fa fa-rub"></i></span>
+                    {% if object.discount != 0 %}
+                    <span class="money old">{{ object.old_price|floatformat:0 }} <i class="fa fa-rub"></i></span>
+                    {% endif %}
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,19 @@
+{% extends 'adminapp/base.html' %}
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+    <h1> Добавление нового товара</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+{#        <input type=hidden name="category" value="{{ category.pk }}">#}
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+    </form>
+    <button class="btn btn-round form-control last">
+        <a href="{% url 'adminapp:products_all' %} ">
+            К списку товаров
+        </a>
+    </button>
+{% endblock %}

@@ -1,0 +1,275 @@
+{% load static %}
+<!doctype html>
+<html class="no-js" lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>{{ company.name }}.
+        {%  block title %}
+            Интернет-магазин развивающих игрушек по методике Монтессори
+        {% endblock %}
+        </title>
+        <meta name="description" content="Интернет-магазин развивающих игрушек по методике Монтессори">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Favicon -->
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+
+        <!-- CSS
+        ============================================ -->
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+        <!-- Icon Font CSS -->
+        <link rel="stylesheet" href="{% static 'css/icon-font.min.css' %}">
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Comfortaa:700|Pacifico" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:500" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet" type="text/css">
+
+        <!-- Awesome Fonts -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+        <!-- Plugins CSS -->
+        <link rel="stylesheet" href="{% static 'css/plugins.css' %}">
+
+        <!-- Helper CSS -->
+        <link rel="stylesheet" href="{% static 'css/helper.css' %}">
+
+        <!-- Main Style CSS -->
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+        <!-- Customize CSS -->
+        {% block custom-css %}
+
+        {%  endblock %}
+
+        <!-- Modernizer JS -->
+        <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
+    </head>
+
+    <body>
+        <div class="main-wrapper">
+            <!-- Header Section Start -->
+            <div class="header-section section">
+
+                <!-- Header Top Start -->
+                <div class="header-top header-top-two bg-theme-one ">
+                    <div class="container-fluid ">
+                        <div class="row align-items-center justify-content-center">
+
+                            <div class="col mt-1 mb-1 d-none d-md-flex">
+                                <!-- Header Top Left Start -->
+                                <div class="btn-group ml-3 " id="social-top" role="group" aria-label="social">
+                                    <a href="https://vk.com/dobriydomm" target="_blank"><button type="button" class="btn btn-social" id="btn-vk"><i class="fab fa-vk my-1"></i></button></a>
+                                    <a href="https://www.instagram.com/dobriy.dom/" target="_blank"><button type="button" class="btn btn-social" id="btn-instagram"><i class="fab fa-instagram my-1"></i></button></a>
+                                </div>
+                                <div class="header-top-left header-top-left-two my-auto ml-auto">
+                                    <p>
+                                    Интернет-магазин развивающих игрушек Монтессори
+                                    </p>
+                                    <p><a href="tel:{{ company.phone }}"> {{ company.phone }}</a></p>
+                                </div><!-- Header Top Left End -->
+                            </div>
+
+                            <div class="col mt-1 mb-1">
+                                <!-- Header Shop Links Start -->
+                                <div class="header-top-right header-top-right-two ">
+                                    <p>Добро пожаловать,
+                                    {% if user.is_authenticated %}
+
+                                    <a href="{% url 'authapp:edit' %}">{{ user.username }}</a>
+                                    <a href="{% url 'authapp:logout' %}">Выйти</a></p>
+                                    {% else %}
+                                       Гость</p>
+                                    <p><a href="{% url 'authapp:register' %}">Регистрация</a>
+                                        <a href="{% url 'authapp:login' %}">Войти</a>
+                                    </p>
+                                    {% endif %}
+                                </div><!-- Header Shop Links End -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div><!-- Header Top End -->
+
+                <!-- Header Bottom Start -->
+                <div class="header-bottom header-bottom-one header-sticky">
+                    <div class="container-fluid">
+                        <div class="row menu-center align-items-center justify-content-between">
+
+                            <div class="col mt-15 mb-15">
+                                <!-- Logo Start -->
+                                <div class="header-logo">
+                                    <a href="">
+                                        <img src="{% static 'images/logo-dark-green.png' %}" alt="logo">
+                                    </a>
+                                </div><!-- Logo End -->
+                            </div>
+
+                            <div class="col order-2 order-lg-3">
+                                <!-- Header Advance Search Start -->
+                                <div class="header-shop-links">
+
+                                    <div class="header-search" data-toggle="tooltip" data-placement="bottom" title="Поиск игрушек или статей">
+                                        <button class="search-toggle"><img src="{% static 'images/icons/search.png' %}" alt="Search Toggle"><img class="toggle-close" src="{% static 'images/icons/close.png' %}" alt="Search Toggle"></button>
+                                        <div class="header-search-wrap" >
+                                            <form action="#">
+                                                <input type="text" placeholder='Напишите здесь, что ищете и нажмите "Enter"'>
+                                                <button ><img src="{% static 'images/icons/search.png' %}" alt="Поиск"></button>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <div class="header-wishlist" >
+                                        {% include 'wishlist/inc_wishlist_info.html' %}
+                                    </div>
+
+                                    <div class="header-mini-cart" data-toggle="tooltip" data-placement="bottom" title="Ваша корзина">
+
+                                            {%  include 'basketapp/inc_basket_info.html' %}
+
+                                    </div>
+
+                                </div><!-- Header Advance Search End -->
+                            </div>
+                           {% include 'mainapp/include/main-menu.html'%}
+                        </div>
+                    </div>
+                </div><!-- Header BOttom End -->
+
+            </div><!-- Header Section End -->
+
+            {% block content %}
+
+            {% endblock %}
+
+            <!-- Footer Top Section Start -->
+            <div class="footer-top-section section bg-theme-one-light pt-80 pt-lg-70 pt-md-60 pt-sm-60 pt-xs-40 pb-40 pb-lg-30 pb-md-20 pb-sm-20 pb-xs-0">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="footer-widget footer-widget-2 col-lg-3 col-md-6 col-12 mb-40">
+                            <h4 class="title">Контакты</h4>
+                            <p>г. Челябинск<br/>Улица Городская, 27А</p>
+                            <p><a href="tel:89124784526">+7 (912) 478 45 26</a></p>
+                            <p><a href="mailto:info@example.com">info@example.com</a><a href="ДобрыйДом.Дети">ДобрыйДом.Дети</a></p>
+                        </div>
+
+                        <div class="footer-widget footer-widget-2 col-lg-3 col-md-6 col-12 mb-40">
+                            <h4 class="title">Игрушки</h4>
+                            <ul>
+                                <li><a href="#">Новое поступление</a></li>
+                                <li><a href="#">Лучший выбор</a></li>
+                                <li><a href="#">В тренде</a></li>
+                                <li><a href="#">Выгодная покупка</a></li>
+                                <li><a href="#">Распродажа</a></li>
+                                <li><a href="#">Скоро в продаже</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="footer-widget footer-widget-2 col-lg-3 col-md-6 col-12 mb-40">
+                            <h4 class="title">Информация</h4>
+                            <ul>
+                                <li><a href="#">О нас</a></li>
+                                <li><a href="#">Правила и условия пользования сайтом</a></li>
+                                <li><a href="#">Способы оплаты</a></li>
+                                <li><a href="#">Гарантия на игрушки</a></li>
+                                <li><a href="#">Возврат игрушек</a></li>
+                                <li><a href="#">Безопасность покупки</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="footer-widget footer-widget-2 col-lg-3 col-md-6 col-12 mb-40">
+                            <h4 class="title">Новости</h4>
+                            <p>Подпишитесь на наши новости, чтобы быть всегда в курсе </p>
+
+                            <form id="mc-form" class="mc-form footer-subscribe-form" novalidate="true">
+                                <input id="mc-email" autocomplete="off" placeholder="Введите ваш E-mail здесь" name="EMAIL" type="email">
+                                <button id="mc-submit"><i class="fa fa-paper-plane"></i></button>
+                            </form>
+                            <!-- mailchimp-alerts Start -->
+                            <div class="mailchimp-alerts">
+                                <div class="mailchimp-submitting"></div><!-- mailchimp-submitting end -->
+                                <div class="mailchimp-success"></div><!-- mailchimp-success end -->
+                                <div class="mailchimp-error"></div><!-- mailchimp-error end -->
+                            </div><!-- mailchimp-alerts end -->
+
+                            <h5>Мы в социальных сетях</h5>
+                            <p class="footer-social"><a href="https://vk.com/dobriydomm" target="_blank">Вконтакте</a> - <a href="https://www.instagram.com/dobriy.dom/" target="_blank">Instagram</a></p>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div><!-- Footer Top Section End -->
+
+            <!-- Footer Bottom Section Start -->
+            <div class="footer-bottom-section section bg-theme-one pt-5 pb-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col text-center">
+                            <p class="footer-copyright">Добрый дом &copy; Все права защищены</p>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- Footer Bottom Section End -->
+        </div>
+        <!-- JS
+          ============================================ -->
+        <!-- jQuery JS -->
+        <script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
+        <!-- Popper JS -->
+        <script src="{% static 'js/popper.min.js' %}"></script>
+        <!-- Bootstrap JS -->
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <!-- Plugins JS -->
+        <script src="{% static 'js/plugins.js' %}"></script>
+        <!-- Ajax Mail -->
+        <script src="{% static 'js/ajax-mail.js' %}"></script>
+        <!-- Main JS -->
+        <script src="{% static 'js/main.js' %}"></script>
+        <!-- Customize JS -->
+        <script src="{% static "js/basket.js" %}"></script>
+        <script src="{% static 'js/wishlist.js' %}"></script>
+        <script>
+
+            $(function(){
+                $('body').tooltip({ selector: '[data-toggle="tooltip"]' });
+            });
+        </script>
+        {% block custom-js %}
+
+        {%  endblock %}
+
+
+    </body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

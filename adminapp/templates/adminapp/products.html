@@ -1,0 +1,74 @@
+{% extends 'adminapp/base.html' %}
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+    <h1>Товары</h1>
+    {% if category %}
+    <h1>{{ category.name }} - Товары</h1>
+
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+         <div class="btn-group mr-2">
+             <a href="{% url 'adminapp:product_create' category.pk %}"><button class="btn btn-sm btn-success">Добавить новый товар</button></a>
+         </div>
+     {% else %}
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <div class="btn-group mr-2">
+            <a href="{% url 'adminapp:product_create'  %}"><button class="btn btn-sm btn-success">Добавить новый товар</button></a>
+        </div>
+        </div>
+    {% endif %}
+
+
+<h2>Список товаров</h2>
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+        <li class="page-item"><a class="page-link" href="{% url 'adminapp:products_all' %}?page={{ page_obj.previous_page_number }}"> < </a></li>
+        {% endif %}
+        {% for index in paginator.page_range %}
+        <li class="page-item"><a class="page-link" href="{% url 'adminapp:products_all' %}?page={{ index }}">{{ index }}</a></li>
+        {% endfor %}
+        {% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link" href="{% url 'adminapp:products_all' %}?page={{ page_obj.next_page_number }}"> > </a></li>
+        {% endif %}
+    </ul>
+</nav>
+<div class="table-responsive">
+    <table class="table table-striped table-sm">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Имя товара</th>
+            <th>Имя категории</th>
+            <th>Действие</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for object in object_list %}
+
+        <tr>
+            <td>{{ object.pk }}</td>
+            <td>{{ object.name }}</td>
+            <td>{{ object.category.name }}</td>
+            <td>
+                    <div class="btn-group mr-2">
+                        <a href={% url 'adminapp:product_read' object.pk %}>
+                        <button class="btn btn-sm btn-outline-success">Подробнее</button>
+                        </a>
+                        <a href={% url 'adminapp:product_update' object.pk %}>
+                            <button class="btn btn-sm btn-outline-primary">Редактировать</button>
+                        </a>
+                        <a href={% url 'adminapp:product_delete' object.pk %}>
+                        <button class="btn btn-sm btn-outline-danger">Удалить</button>
+                        </a>
+                    </div>
+            </td>
+        </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+{% endblock %}

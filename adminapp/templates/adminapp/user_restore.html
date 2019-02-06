@@ -1,0 +1,24 @@
+{% extends 'adminapp/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <div>
+        Восстановить пользователя {{ user_to_restore.username }}
+        {% if user_to_restore.first_name %}
+            (<b>{{ user_to_restore.first_name|title }}</b>
+            {% if user_to_restore.last_name %}
+                {{ user_to_restore.last_name|title }}
+            {% endif %})
+        {% endif %}
+        ?
+        <form action="{% url 'admin:user_restore' user_to_restore.pk %}" method="post">
+            {% csrf_token %}
+            <input class="btn btn-success" type="submit" value="Восстановить">
+        </form>
+        <button class="btn btn-warning">
+            <a href="{% url 'adminapp:users' %}">
+                Отмена
+            </a>
+        </button>
+    </div>
+{% endblock %}

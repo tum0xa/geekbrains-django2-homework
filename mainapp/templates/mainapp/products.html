@@ -1,0 +1,74 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% block title %}
+    {{ category.name }}
+{%  endblock %}
+
+{%  block content %}
+    <div class="product-section section mt-80 mt-lg-60 mt-md-60 mt-sm-60 mt-xs-40 mb-40 mb-lg-20 mb-md-20 mb-sm-20 mb-xs-0">
+        <div class="container">
+
+            <div class="row">
+                <div class="section-title text-center col mb-30">
+                    <h1>{{ category.name }}</h1>
+                    <p>Все товары категории</p>
+                </div>
+            </div>
+
+            <div class="row">
+                {% if products %}
+                    {% for object in products %}
+                        {% include 'mainapp/include/product_card.html' %}
+                    {%  endfor %}
+                {% else %}
+                    Пусто
+                {% endif %}
+            </div>
+
+        </div>
+    </div><!-- Product Section End -->
+    <!-- Brand Section Start -->
+    {#    <div class="brand-section section mb-80 mb-lg-60 mb-md-60 mb-sm-60 mb-xs-40">#}
+    {#        <div class="container-fluid">#}
+    {#            <div class="row">#}
+    {#                <div class="brand-slider">#}
+    {##}
+    {#                    <div class="brand-item col">#}
+    {#                        <img src="{% static 'images/brands/brand-1.png' %}" alt="">#}
+    {#                    </div>#}
+    {##}
+    {#                    <div class="brand-item col">#}
+    {#                        <img src="{% static 'images/brands/brand-2.png' %}" alt="">#}
+    {#                    </div>#}
+    {##}
+    {#                    <div class="brand-item col">#}
+    {#                        <img src="{% static 'images/brands/brand-3.png' %}" alt="">#}
+    {#                    </div>#}
+    {##}
+    {#                    <div class="brand-item col">#}
+    {#                        <img src="{% static 'images/brands/brand-4.png' %}" alt="">#}
+    {#                    </div>#}
+    {##}
+    {#                    <div class="brand-item col">#}
+    {#                        <img src="{% static 'images/brands/brand-5.png' %}" alt="">#}
+    {#                    </div>#}
+    {##}
+    {#                    <div class="brand-item col">#}
+    {#                        <img src="{% static 'images/brands/brand-6.png' %}" alt="">#}
+    {#                    </div>#}
+    {##}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div><!-- Brand Section End -->#}
+{% endblock %}
+
+{% block custom-js %}
+
+{% endblock %}
+
+
+
+
+
+

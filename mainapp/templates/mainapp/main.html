@@ -1,0 +1,412 @@
+{%  extends 'mainapp/base.html' %}
+{% load static %}
+{% load my_tags %}
+{% block title %}
+    Главная. Интернет-магазин развивающих игрушек.
+{%  endblock %}
+
+
+{% block content %}
+    {% include 'mainapp/include/hero-section.html' %}
+    <!-- Product Section Start -->
+    <div class="product-section section mt-80 mt-lg-60 mt-md-60 mt-sm-60 mt-xs-40 mb-40 mb-lg-20 mb-md-20 mb-sm-20 mb-xs-0">
+        <div class="container">
+
+            <div class="row">
+                <div class="section-title text-center col mb-30">
+                    <h1>Популярные товары</h1>
+                    <p>Товары с высоким рейтингом</p>
+                </div>
+            </div>
+
+            <div class="row">
+
+
+                {% if products_popular %}
+                    {% for object in products_popular %}
+                       {% include 'mainapp/include/product_card.html' %}
+                    {%  endfor %}
+                {% else %}
+                    Пусто
+                {% endif %}
+            </div>
+
+        </div>
+    </div><!-- Product Section End -->
+
+    <!-- Banner Section Start -->
+    <div class="banner-section section mb-60 mb-lg-40 mb-md-40 mb-sm-40 mb-xs-20">
+        <div class="container-fluid">
+            <div class="row row-10">
+                {%  if banners %}
+                    {%  for banner in banners %}
+                    <div class="col-lg-4 col-md-6 col-12 mb-20">
+                        <div class="banner banner-1 home-2-banner content-left content-middle">
+
+                            <a href="#" class="image"><img src="{{ banner.image.url }}" alt="Banner Image"></a>
+
+                            <div class="content">
+                                <h1>{{ banner.text_top }}<br>{{ banner.text_bottom }}<br>{{ banner.text_discount }}</h1>
+                                <a href="#" data-hover="SHOP NOW">{{ banner.text_button }}</a>
+                            </div>
+
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div></div>
+                {% endif %}
+
+
+            </div>
+        </div>
+    </div><!-- Banner Section End -->
+
+    <!-- Product Section Start -->
+    <div class="product-section section mb-40 mb-lg-20 mb-md-20 mb-sm-20 mb-xs-0">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-4 col-md-6 col-12 order-1 order-md-2 mb-40">
+
+                    <div class="row">
+                        <div class="section-title text-left col col mb-30">
+                            <h1>Лучшее предложение</h1>
+                            <p>Специально для вас</p>
+                        </div>
+                    </div>
+{#                    {% if slider_best_deal %}#}
+{#                        <div class="best-deal-slider row">#}
+{##}
+{#                                {% for item in slider_best_deal %}#}
+{#                                <div class="slide-item col">#}
+{#                                    <div class="best-deal-product">#}
+{##}
+{#                                        <div class="image"><img src="{{ item.image }}" alt=""></div>#}
+{##}
+{#                                        <div class="content-top">#}
+{##}
+{#                                            <div class="content-top-left">#}
+{#                                                <h4 class="title"><a href="#">{{ item.name }}</a></h4>#}
+{#                                                {% if item.ratting %}#}
+{#                                                <div class="ratting">#}
+{#                                                    {% for star in item.ratting %}#}
+{#                                                        {% if star == 'full' %}#}
+{#                                                            <i class="fa fa-star"></i>#}
+{#                                                        {% elif star == 'half'%}#}
+{#                                                            <i class="fa fa-star-half-o"></i>#}
+{#                                                        {% endif %}#}
+{#                                                    {% endfor %}#}
+{#                                                </div>#}
+{#                                                {% endif %}#}
+{#                                            </div>#}
+{##}
+{#                                            <div class="content-top-right">#}
+{#                                                <span class="price">{{ item.price }}<span class="old">{{ item.oldprice }}</span></span>#}
+{#                                            </div>#}
+{##}
+{#                                        </div>#}
+{##}
+{#                                        <div class="content-bottom">#}
+{#                                            <div class="countdown" data-countdown="{{ item.countdown_date }}"></div> 2019/06/20#}
+{#                                            <a href="#" data-hover="SHOP NOW">{{ item.text_shop_now }}</a>#}
+{#                                        </div>#}
+{##}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                {% endfor %}#}
+{##}
+{##}
+{##}
+{#                        </div>#}
+{#                    {% else %}#}
+{#                        <div>Пусто</div>#}
+{#                    {% endif %}#}
+                </div>
+
+                <div class="col-lg-8 col-md-6 col-12 pr-50 pr-sm-15 pr-xs-15 order-2 order-md-1">
+
+                    <div class="row">
+                        <div class="section-title text-left col mb-30">
+                            <h1>РАСПРОДАЖА</h1>
+                            <p>Игрушки с большими скидками</p>
+                        </div>
+                    </div>
+                    {% if sales_list %}
+
+                    <div class="small-product-slider row row-7 slick-initialized slick-slider">
+                        <div class="slick-list draggable">
+                            <div class="slick-track" style="opacity: 1; width: 752px; transform: translate3d(0px, 0px, 0px);">
+                                <div class="slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" style="width: 188px;">
+                                    <div>
+                                        <div class="col mb-40" style="width: 100%; display: inline-block;">
+                                            {% for object in sales_list %}
+                                                    <div class="on-sale-product">
+                                                        <a href="{% url 'mainapp:product_view' object.category.slug object.slug %}" class="image" tabindex="0"><img src="{{ object.image.url }}" alt=""></a>
+                                                        <div class="content text-center">
+                                                            <h4 class="title"><a href="{% url 'mainapp:product_view' object.category.slug object.slug %}" tabindex="0">{{ object.name }}</a></h4>
+                                                            <span class="price">{{ object.price|floatformat:0 }} <span class="old">{{ object.old_price|floatformat:0 }}</span></span>
+                                                            {% show_ratting object.ratting %}
+                                                        </div>
+                                                    </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                {% else %}
+                        На текущий момент нет игрушек со скидками более 20%
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div><!-- Product Section End -->
+
+    <!-- Banner Section Start -->
+{#    <div class="banner-section section fix mb-70 mb-lg-50 mb-md-50 mb-sm-50 mb-xs-30">#}
+{#        <div class="row row-5">#}
+{#            {%  if banners %}#}
+{#                {%  for banner in banners %}#}
+{#                    <div class="col-lg-4 col-md-6 col-12 mb-10">#}
+{#                        <div class="banner banner-5 home-2-banner">#}
+{##}
+{#                            <a href="#" class="image"><img src="{{ banner.image.url }}" alt="Banner Image"></a>#}
+{##}
+{#                            <div class="content" style="background-image: url({% static 'images/banner/banner-5-2-shape.png' %})">#}
+{#                                <h1>{{ banner.text_top }}<br>{{ banner.text_bottom }}</h1>#}
+{#                                <h2>{{ banner.text_discount }}</h2>#}
+{#                            </div>#}
+{##}
+{#                            <a href="#" class="shop-link" data-hover="SHOP NOW">{{ banner.text_button }}</a>#}
+{##}
+{#                        </div>#}
+{#                    </div>#}
+{#                    {% endfor %}#}
+{#            {%  else %}#}
+{#                <div></div>#}
+{#            {% endif %}#}
+
+
+
+
+
+{#        </div>#}
+{#    </div><!-- Banner Section End -->#}
+{##}
+{#    <!-- Testimonial Section Start -->#}
+{#    <div class="testimonial-section section mb-80 mb-lg-60 mb-md-60 mb-sm-60 mb-xs-40">#}
+{#        <div class="container">#}
+{##}
+{#            <div class="row">#}
+{#                <div class="section-title text-center col mb-30">#}
+{#                    <h1>CLIENTS REVIEW</h1>#}
+{#                    <p>Clients says abot us</p>#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#            <div class="testimonial-slider row">#}
+{##}
+{#                <div class="col">#}
+{#                    <div class="testimonial-item">#}
+{#                        <p>Jadusona is one of the most exclusive Baby shop in the wold, where you can find all product for your baby that your want to buy for your baby. I recomanded this shop all of you</p>#}
+{#                        <div class="testimonial-author">#}
+{#                            <img src="{% static 'images/testimonial/testimonial-1.png' %}" alt="">#}
+{#                            <div class="content">#}
+{#                                <h4>Zacquline Smith</h4>#}
+{#                                <p>CEO, Momens Group</p>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#                <div class="col">#}
+{#                    <div class="testimonial-item">#}
+{#                        <p>Jadusona is one of the most exclusive Baby shop in the wold, where you can find all product for your baby that your want to buy for your baby. I recomanded this shop all of you</p>#}
+{#                        <div class="testimonial-author">#}
+{#                            <img src="{% static 'images/testimonial/testimonial-2.png' %}" alt="">#}
+{#                            <div class="content">#}
+{#                                <h4>Nusaha Williams</h4>#}
+{#                                <p>CEO, Momens Group</p>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#                <div class="col">#}
+{#                    <div class="testimonial-item">#}
+{#                        <p>Jadusona is one of the most exclusive Baby shop in the wold, where you can find all product for your baby that your want to buy for your baby. I recomanded this shop all of you</p>#}
+{#                        <div class="testimonial-author">#}
+{#                            <img src="{% static 'images/testimonial/testimonial-1.png' %}" alt="">#}
+{#                            <div class="content">#}
+{#                                <h4>Zacquline Smith</h4>#}
+{#                                <p>CEO, Momens Group</p>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#                <div class="col">#}
+{#                    <div class="testimonial-item">#}
+{#                        <p>Jadusona is one of the most exclusive Baby shop in the wold, where you can find all product for your baby that your want to buy for your baby. I recomanded this shop all of you</p>#}
+{#                        <div class="testimonial-author">#}
+{#                            <img src="{% static 'images/testimonial/testimonial-2.png' %}" alt="">#}
+{#                            <div class="content">#}
+{#                                <h4>Nusaha Williams</h4>#}
+{#                                <p>CEO, Momens Group</p>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#            </div>#}
+{#        </div>#}
+{#    </div><!-- Testimonial Section End -->#}
+{##}
+{#    <!-- Feature Section Start -->#}
+{#    <div class="feature-section section fix mb-60 mb-lg-40 mb-md-40 mb-sm-40 mb-xs-20">#}
+{#        <div class="container-fluid">#}
+{#            <div class="feature-wrap row row-10">#}
+{##}
+{#                <div class="col-lg-4 col-md-6 col-12 mb-20">#}
+{#                    <div class="feature-item-2 text-center bg-theme-one" style="background-image: url({% static 'images/feature/feature-1-bg.png' %})">#}
+{##}
+{#                        <div class="icon"><img src="{% static 'images/feature/feature-1.png' %}" alt=""></div>#}
+{#                        <div class="content">#}
+{#                            <h3>Free Shipping</h3>#}
+{#                            <p>Start from $100</p>#}
+{#                        </div>#}
+{##}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#                <div class="col-lg-4 col-md-6 col-12 mb-20">#}
+{#                    <div class="feature-item-2 text-center bg-theme-one" style="background-image: url({% static 'images/feature/feature-2-bg.png' %})">#}
+{##}
+{#                        <div class="icon"><img src="{% static 'images/feature/feature-2.png' %}" alt=""></div>#}
+{#                        <div class="content">#}
+{#                            <h3>Money Back Guarantee</h3>#}
+{#                            <p>Back within 25 days</p>#}
+{#                        </div>#}
+{##}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#                <div class="col-lg-4 col-md-6 col-12 mb-20">#}
+{#                    <div class="feature-item-2 text-center bg-theme-one" style="background-image: url({% static 'images/feature/feature-3-bg.png' %})">#}
+{##}
+{#                        <div class="icon"><img src="{% static 'images/feature/feature-3.png" alt=""></div>#}
+{#                        <div class="content">#}
+{#                            <h3>Secure Payment</h3>#}
+{#                            <p>Payment Security</p>#}
+{#                        </div>#}
+{##}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#            </div>#}
+{#        </div>#}
+{#    </div><!-- Feature Section End -->#}
+{##}
+{#    <!-- Blog Section Start -->#}
+{#    <div class="blog-section section mb-40 mb-lg-20 mb-md-20 mb-sm-20 mb-xs-0">#}
+{#        <div class="container">#}
+{##}
+{#            <div class="row">#}
+{#                <div class="section-title text-center col mb-30">#}
+{#                    <h1>FROM THE BLOG</h1>#}
+{#                    <p>Find all latest update here</p>#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#            <div class="row">#}
+{##}
+{#                <div class="col-lg-6 col-12 mb-40">#}
+{#                    <div class="blog-item">#}
+{#                        <div class="image-wrap">#}
+{#                            <h4 class="date">May <span>25</span></h4>#}
+{#                            <a class="image" href="#"><img src="{% static 'images/blog/blog-3.jpg' %}" alt=""></a>#}
+{#                        </div>#}
+{#                        <div class="content">#}
+{#                            <h4 class="title"><a href="#">Lates and new Trens for baby fashion</a></h4>#}
+{#                            <div class="desc">#}
+{#                                <p>Jadusona is one of the most of a exclusive Baby shop in the</p>#}
+{#                            </div>#}
+{#                            <ul class="meta">#}
+{#                                <li><a href="#"><img src="{% static 'images/blog/blog-author-1.jpg' %}" alt="Blog Author">Muhin</a></li>#}
+{#                                <li><a href="#">25 Likes</a></li>#}
+{#                                <li><a href="#">05 Views</a></li>#}
+{#                            </ul>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#                <div class="col-lg-6 col-12 mb-40">#}
+{#                    <div class="blog-item">#}
+{#                        <div class="image-wrap">#}
+{#                            <h4 class="date">May <span>20</span></h4>#}
+{#                            <a class="image" href="single-blog.html"><img src="{% static 'images/blog/blog-4.jpg' %}" alt=""></a>#}
+{#                        </div>#}
+{#                        <div class="content">#}
+{#                            <h4 class="title"><a href="single-blog.html">New Collection New Trend all New Style</a></h4>#}
+{#                            <div class="desc">#}
+{#                                <p>Jadusona is one of the most of a exclusive Baby shop in the</p>#}
+{#                            </div>#}
+{#                            <ul class="meta">#}
+{#                                <li><a href="#"><img src="{% static 'images/blog/blog-author-2.jpg' %}" alt="Blog Author">Takiya</a></li>#}
+{#                                <li><a href="#">25 Likes</a></li>#}
+{#                                <li><a href="#">05 Views</a></li>#}
+{#                            </ul>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#            </div>#}
+{#        </div>#}
+{#    </div><!-- Blog Section End -->#}
+{##}
+{#    <!-- Brand Section Start -->#}
+{#    <div class="brand-section section mb-80 mb-lg-60 mb-md-60 mb-sm-60 mb-xs-40">#}
+{#        <div class="container-fluid">#}
+{#            <div class="row">#}
+{#                <div class="brand-slider">#}
+{##}
+{#                    <div class="brand-item col">#}
+{#                        <img src="{% static 'images/brands/brand-1.png' %}" alt="">#}
+{#                    </div>#}
+{##}
+{#                    <div class="brand-item col">#}
+{#                        <img src="{% static 'images/brands/brand-2.png' %}" alt="">#}
+{#                    </div>#}
+{##}
+{#                    <div class="brand-item col">#}
+{#                        <img src="{% static 'images/brands/brand-3.png' %}" alt="">#}
+{#                    </div>#}
+{##}
+{#                    <div class="brand-item col">#}
+{#                        <img src="{% static 'images/brands/brand-4.png' %}" alt="">#}
+{#                    </div>#}
+{##}
+{#                    <div class="brand-item col">#}
+{#                        <img src="{% static 'images/brands/brand-5.png' %}" alt="">#}
+{#                    </div>#}
+{##}
+{#                    <div class="brand-item col">#}
+{#                        <img src="{% static 'images/brands/brand-6.png' %}" alt="">#}
+{#                    </div>#}
+{##}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div><!-- Brand Section End -->#}
+
+
+
+{% endblock %}
+
+{% block custom-js %}
+
+{% endblock %}

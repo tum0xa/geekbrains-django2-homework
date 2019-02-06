@@ -1,0 +1,42 @@
+<div class="col order-3 order-lg-2">
+    <div class="main-menu">
+        <nav>
+            <ul>
+                <li class="active"><a href="{%  url 'main' %}">Главная</a>
+
+                </li>
+                {% if category_list %}
+                <li><a href="{#  #}#">Игрушки</a>
+                    <ul class="sub-menu">
+
+                        {% for category in category_list %}
+                            <li><a href="{% url 'mainapp:category_products' category.slug %}">{{ category.name }}</a></li>
+                        {% endfor %}
+
+                    </ul>
+                </li>
+                {% endif %}
+                <li><a href="#">Статьи</a>
+                    <ul class="sub-menu">
+                        <li><a href="#">Тема 1</a></li>
+                        <li><a href="#">Тема 2</a></li>
+                        <li><a href="#">Тема 3</a></li>
+                        <li><a href="#">Тема 4</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">О магазине</a>
+                    <ul class="sub-menu">
+                        <li><a href="#">История</a></li>
+                        <li><a href="#">Команда</a></li>
+                    </ul>
+                </li>
+                <li><a href="{%  url 'contacts' %}">Контакты</a></li>
+            {% if user.is_superuser %}
+                <li><a href="{%  url 'adminapp:index' %}">Администрирование</a></li>
+            {% endif %}
+            </ul>
+        </nav>
+    </div>
+</div>
+<!-- Mobile Menu -->
+<div class="mobile-menu order-12 d-block d-lg-none col"></div>

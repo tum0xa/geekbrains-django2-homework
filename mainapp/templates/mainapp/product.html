@@ -1,0 +1,480 @@
+{% extends 'mainapp/base.html' %}
+{% load static %}
+{% block title %}
+    {{ product.name }} - {{ product.short_description }}
+{%  endblock %}
+
+    <!-- Page Banner Section Start -->
+{#    <div class="page-banner-section section" style="background-image: url(assets/images/hero/hero-1.jpg)">#}
+{#        <div class="container">#}
+{#            <div class="row">#}
+{#                <div class="page-banner-content col">#}
+{##}
+{#                    <h1>Single Product</h1>#}
+{#                    <ul class="page-breadcrumb">#}
+{#                        <li><a href="index.html">Home</a></li>#}
+{#                        <li><a href="single-product.html">Single Product</a></li>#}
+{#                    </ul>#}
+{##}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div><!-- Page Banner Section End -->#}
+
+{% block content %}
+    <!-- Page Section Start -->
+    <div class="page-section section mt-80 mt-lg-60 mt-md-60 mt-sm-60 mt-xs-40 mb-80 mb-lg-60 mb-md-60 mb-sm-60 mb-xs-40">
+        <div class="container">
+            <div class="row row-30">
+
+                <div class="col-12">
+                    <div class="row row-20 mb-20 mb-xs-0">
+
+                        <div class="col-lg-6 col-12 mb-40">
+
+                            <div class="pro-large-img mb-10 fix easyzoom easyzoom--overlay easyzoom--with-thumbnails">
+                                <a href="{{ product.image_zoom.url }}">
+                                    <img src="{{ product.image_zoom.url  }}" alt="{{ product.text_alt }}"/>
+                                </a>
+                            </div>
+                            <!-- Single Product Thumbnail Slider -->
+                            <ul id="pro-thumb-img" class="pro-thumb-img">
+                                {% if product.image %}
+                                    <li><a href="{{ product.image.url }}" data-standard="{{ product.image_zoom.url }}"><img src="{{ product.image.url }}" alt="{{ product.text_alt }}" /></a></li>
+{#                                {% else %}#}
+{#                                    <li><a href="{% static 'images/dummy.jpg' %}" data-standard="{% static 'images/dummy.jpg' %}"><img src="{% static 'images/dummy.jpg' %} alt="dummy" /></a></li>#}
+                                {% endif %}
+
+                                {% if product.image_2 %}
+                                    <li><a href="{{ product.image_2.url }}" data-standard="{{ product.image_2_big.url }}"><img src="{{ product.image_2.url }}" alt="{{ product.text_alt }}" /></a></li>
+{#                                {% else %}#}
+{#                                    <li><a href="{% static 'images/dummy.jpg' %}" data-standard="{% static 'images/dummy.jpg' %}"><img src="{% static 'images/dummy.jpg' %} alt="dummy1" /></a></li>#}
+                                {% endif %}
+                                {% if product.image_3 %}
+                                    <li><a href="{{ product.image_3.url }}" data-standard="{{ product.image_3_big.url }}"><img src="{{ product.image_3.url }}" alt="{{ product.text_alt }}" /></a></li>
+{#                                {% else %}#}
+{#                                    <li><a href="{% static 'images/dummy.jpg' %}" data-standard="{% static 'images/dummy.jpg' %}"><img src="{% static 'images/dummy.jpg' %} alt="dummy2" /></a></li>#}
+                                {% endif %}
+                                {% if product.image_4 %}
+                                    <li><a href="{{ product.image_4.url }}" data-standard="{{ product.image_4_big.url }}"><img src="{{ product.image_4.url }}" alt="{{ product.text_alt }}" /></a></li>
+{#                                {% else %}#}
+{#                                    <li><a href="{% static 'images/dummy.jpg' %}" data-standard="{% static 'images/dummy.jpg' %}"><img src="{% static 'images/dummy.jpg' %} alt="dummy3" /></a></li>#}
+                                {% endif %}
+
+                            </ul>
+                        </div>
+
+                        <div class="col-lg-6 col-12 mb-40">
+                            <div class="single-product-content">
+
+                                <div class="head">
+                                    <div class="head-left">
+
+                                        <h3 class="title">{{ product.name }}</h3>
+
+                                        <div class="ratting">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
+                                            <i class="far fa-star"></i>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="head-right">
+                                        <span class="price">{{ product.price|floatformat:0 }} <i class="fa fa-rub"></i></span>
+                                    </div>
+                                </div>
+
+                                <div class="description">
+                                    <p>{{ product.short_description }}</p>
+                                </div>
+
+{#                                <span class="availability">Availability: <span>In Stock</span></span>#}
+
+                                <div class="quantity-colors">
+
+                                    <div class="quantity">
+                                        <h5>Количество:</h5>
+                                        <div class="pro-qty">
+                                            <span class="dec qtybtn"><i class="ti-minus"></i></span>
+                                            <input type="text" value="1">
+                                            <span class="inc qtybtn"><i class="ti-plus"></i></span>
+                                        </div>
+
+                                    </div>                            
+
+{#                                    <div class="colors">#}
+{#                                        <h5>Color:</h5>#}
+{#                                        <div class="color-options">#}
+{#                                            <button style="background-color: #ff502e"></button>#}
+{#                                            <button style="background-color: #fff600"></button>#}
+{#                                            <button style="background-color: #1b2436"></button>#}
+{#                                        </div>#}
+{#                                    </div>                            #}
+
+                                </div>
+
+                                <div class="actions">
+                                    <button id="add_to_basket" data-pk="{{ product.pk }}" ><i class="ti-shopping-cart"></i><span>Добавить в корзину</span></button>
+                                    <button class="box" data-tooltip="Сравнить"><i class="ti-control-shuffle"></i></button>
+                                    <button class="box" data-tooltip="В желаемое"><i class="ti-heart"></i></button>
+
+                                </div>
+
+                                <div class="tags">
+
+                                    <h5>Метки:</h5>
+                                    <a href="#">Игрушки</a>
+                                    <a href="#">Кубики</a>
+                                    <a href="#">Монтессори</a>
+                                    <a href="#">Деревянные игрушки</a>
+
+
+                                </div>
+
+                                <div class="share">
+
+                                    <h5>Поделиться: </h5>
+                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                    <a href="#"><i class="fa fa-instagram"></i></a>
+                                    <a href="#"><i class="fa fa-google-plus"></i></a>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row mb-60 mb-xs-40">
+                        <!-- Nav tabs -->
+                        <div class="col-12">
+                            <ul class="pro-info-tab-list section nav">
+                                <li><a class="active" href="#more-info" data-toggle="tab">Подробнее</a></li>
+                                <li><a href="#data-sheet" data-toggle="tab">Характеристики</a></li>
+                                <li><a href="#reviews" data-toggle="tab">Отзывы</a></li>
+                            </ul>
+                        </div>
+                        <!-- Tab panes -->
+                        <div class="tab-content col-12">
+                            <div class="pro-info-tab tab-pane active" id="more-info">
+                                <p>{{ product.full_description }}</p>
+                            </div>
+{#                            <div class="pro-info-tab tab-pane" id="data-sheet">#}
+{#                                <table class="table-data-sheet">#}
+{#                                    <tbody>#}
+{#                                        <tr class="odd">#}
+{#                                            <td>Compositions</td>#}
+{#                                            <td>Cotton</td>#}
+{#                                        </tr>#}
+{#                                        <tr class="even">#}
+{#                                            <td>Styles</td>#}
+{#                                            <td>Casual</td>#}
+{#                                        </tr>#}
+{#                                        <tr class="odd">#}
+{#                                            <td>Properties</td>#}
+{#                                            <td>Short Sleeve</td>#}
+{#                                        </tr>#}
+{#                                    </tbody>#}
+{#                                </table>#}
+{#                            </div>#}
+                            <div class="pro-info-tab tab-pane" id="reviews">
+                                <a href="#">Оставьте отзыв!</a>
+                            </div>
+                        </div>
+                    </div>
+
+{#                    <div class="row">#}
+{##}
+{#                        <div class="section-title text-left col col mb-60 mb-sm-40 mb-xs-30">#}
+{#                            <h1>Related Product</h1>#}
+{#                        </div>#}
+{##}
+{#                        <div class="related-product-slider related-product-slider-1 col-12 p-0">#}
+{##}
+{#                            <div class="col">#}
+{##}
+{#                                <div class="product-item">#}
+{#                                    <div class="product-inner">#}
+{##}
+{#                                        <div class="image">#}
+{#                                            <img src="assets/images/product/product-1.jpg" alt="">#}
+{##}
+{#                                            <div class="image-overlay">#}
+{#                                                <div class="action-buttons">#}
+{#                                                    <button>add to cart</button>#}
+{#                                                    <button>add to wishlist</button>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{##}
+{#                                        </div>#}
+{##}
+{#                                        <div class="content">#}
+{##}
+{#                                            <div class="content-left">#}
+{##}
+{#                                                <h4 class="title"><a href="single-product.html">Tmart Baby Dress</a></h4>#}
+{##}
+{#                                                <div class="ratting">#}
+{#                                                    <i class="fa fa-star"></i>#}
+{#                                                    <i class="fa fa-star"></i>#}
+{#                                                    <i class="fa fa-star"></i>#}
+{#                                                    <i class="fa fa-star-half-o"></i>#}
+{#                                                    <i class="fa fa-star-o"></i>#}
+{#                                                </div>#}
+{##}
+{#                                                <h5 class="size">Size: <span>S</span><span>M</span><span>L</span><span>XL</span></h5>#}
+{#                                                <h5 class="color">Color: <span style="background-color: #ffb2b0"></span><span style="background-color: #0271bc"></span><span style="background-color: #efc87c"></span><span style="background-color: #00c183"></span></h5>#}
+{##}
+{#                                            </div>#}
+{##}
+{#                                            <div class="content-right">#}
+{#                                                <span class="price">$25</span>#}
+{#                                            </div>#}
+{##}
+{#                                        </div>#}
+{##}
+{#                                    </div>#}
+{#                                </div>#}
+{##}
+{#                            </div>#}
+{##}
+{#                            <div class="col">#}
+{##}
+{#                                <div class="product-item">#}
+{#                                    <div class="product-inner">#}
+{##}
+{#                                        <div class="image">#}
+{#                                            <img src="assets/images/product/product-2.jpg" alt="">#}
+{##}
+{#                                            <div class="image-overlay">#}
+{#                                                <div class="action-buttons">#}
+{#                                                    <button>add to cart</button>#}
+{#                                                    <button>add to wishlist</button>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{##}
+{#                                        </div>#}
+{##}
+{#                                        <div class="content">#}
+{##}
+{#                                            <div class="content-left">#}
+{##}
+{#                                                <h4 class="title"><a href="single-product.html">Jumpsuit Outfits</a></h4>#}
+{##}
+{#                                                <div class="ratting">#}
+{#                                                    <i class="fa fa-star"></i>#}
+{#                                                    <i class="fa fa-star"></i>#}
+{#                                                    <i class="fa fa-star"></i>#}
+{#                                                    <i class="fa fa-star"></i>#}
+{#                                                    <i class="fa fa-star"></i>#}
+{#                                                </div>#}
+{##}
+{#                                                <h5 class="size">Size: <span>S</span><span>M</span><span>L</span><span>XL</span></h5>#}
+{#                                                <h5 class="color">Color: <span style="background-color: #ffb2b0"></span><span style="background-color: #0271bc"></span><span style="background-color: #efc87c"></span><span style="background-color: #00c183"></span></h5>#}
+{##}
+{#                                            </div>#}
+{##}
+{#                                            <div class="content-right">#}
+{#                                                <span class="price">$09</span>#}
+{#                                            </div>#}
+{##}
+{#                                        </div>#}
+{##}
+{#                                    </div>#}
+{#                                </div>#}
+{##}
+{#                            </div>#}
+{##}
+{#                            <div class="col">#}
+{##}
+{#                                <div class="product-item">#}
+{#                                    <div class="product-inner">#}
+{##}
+{#                                        <div class="image">#}
+{#                                            <img src="assets/images/product/product-3.jpg" alt="">#}
+{##}
+{#                                            <div class="image-overlay">#}
+{#                                                <div class="action-buttons">#}
+{#                                                    <button>add to cart</button>#}
+{#                                                    <button>add to wishlist</button>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{##}
+{#                                        </div>#}
+{##}
+{#                                        <div class="content">#}
+{##}
+{#                                            <div class="content-left">#}
+{##}
+{#                                                <h4 class="title"><a href="single-product.html">Smart Shirt</a></h4>#}
+{##}
+{#                                                <div class="ratting">#}
+{#                                                    <i class="fa fa-star"></i>#}
+{#                                                    <i class="fa fa-star"></i>#}
+{#                                                    <i class="fa fa-star"></i>#}
+{#                                                    <i class="fa fa-star"></i>#}
+{#                                                    <i class="fa fa-star-o"></i>#}
+{#                                                </div>#}
+{##}
+{#                                                <h5 class="size">Size: <span>S</span><span>M</span><span>L</span><span>XL</span></h5>#}
+{#                                                <h5 class="color">Color: <span style="background-color: #ffb2b0"></span><span style="background-color: #0271bc"></span><span style="background-color: #efc87c"></span><span style="background-color: #00c183"></span></h5>#}
+{##}
+{#                                            </div>#}
+{##}
+{#                                            <div class="content-right">#}
+{#                                                <span class="price">$18</span>#}
+{#                                            </div>#}
+{##}
+{#                                        </div>#}
+{##}
+{#                                    </div>#}
+{#                                </div>#}
+{##}
+{#                            </div>#}
+{##}
+{#                            <div class="col">#}
+{##}
+{#                                <div class="product-item">#}
+{#                                    <div class="product-inner">#}
+{##}
+{#                                        <div class="image">#}
+{#                                            <img src="assets/images/product/product-4.jpg" alt="">#}
+{##}
+{#                                            <div class="image-overlay">#}
+{#                                                <div class="action-buttons">#}
+{#                                                    <button>add to cart</button>#}
+{#                                                    <button>add to wishlist</button>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{##}
+{#                                        </div>#}
+{##}
+{#                                        <div class="content">#}
+{##}
+{#                                            <div class="content-left">#}
+{##}
+{#                                                <h4 class="title"><a href="single-product.html">Kids Shoe</a></h4>#}
+{##}
+{#                                                <div class="ratting">#}
+{#                                                    <i class="fa fa-star"></i>#}
+{#                                                    <i class="fa fa-star"></i>#}
+{#                                                    <i class="fa fa-star"></i>#}
+{#                                                    <i class="fa fa-star-half-o"></i>#}
+{#                                                    <i class="fa fa-star-o"></i>#}
+{#                                                </div>#}
+{##}
+{#                                                <h5 class="size">Size: <span>S</span><span>M</span><span>L</span><span>XL</span></h5>#}
+{#                                                <h5 class="color">Color: <span style="background-color: #ffb2b0"></span><span style="background-color: #0271bc"></span><span style="background-color: #efc87c"></span><span style="background-color: #00c183"></span></h5>#}
+{##}
+{#                                            </div>#}
+{##}
+{#                                            <div class="content-right">#}
+{#                                                <span class="price">$15</span>#}
+{#                                            </div>#}
+{##}
+{#                                        </div>#}
+{##}
+{#                                    </div>#}
+{#                                </div>#}
+{##}
+{#                            </div>#}
+{##}
+{#                            <div class="col">#}
+{##}
+{#                                <div class="product-item">#}
+{#                                    <div class="product-inner">#}
+{##}
+{#                                        <div class="image">#}
+{#                                            <img src="assets/images/product/product-5.jpg" alt="">#}
+{##}
+{#                                            <div class="image-overlay">#}
+{#                                                <div class="action-buttons">#}
+{#                                                    <button>add to cart</button>#}
+{#                                                    <button>add to wishlist</button>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{##}
+{#                                        </div>#}
+{##}
+{#                                        <div class="content">#}
+{##}
+{#                                            <div class="content-left">#}
+{##}
+{#                                                <h4 class="title"><a href="single-product.html"> Bowknot Bodysuit</a></h4>#}
+{##}
+{#                                                <div class="ratting">#}
+{#                                                    <i class="fa fa-star"></i>#}
+{#                                                    <i class="fa fa-star"></i>#}
+{#                                                    <i class="fa fa-star"></i>#}
+{#                                                    <i class="fa fa-star"></i>#}
+{#                                                    <i class="fa fa-star-half-o"></i>#}
+{#                                                </div>#}
+{##}
+{#                                                <h5 class="size">Size: <span>S</span><span>M</span><span>L</span><span>XL</span></h5>#}
+{#                                                <h5 class="color">Color: <span style="background-color: #ffb2b0"></span><span style="background-color: #0271bc"></span><span style="background-color: #efc87c"></span><span style="background-color: #00c183"></span></h5>#}
+{##}
+{#                                            </div>#}
+{##}
+{#                                            <div class="content-right">#}
+{#                                                <span class="price">$12</span>#}
+{#                                            </div>#}
+{##}
+{#                                        </div>#}
+{##}
+{#                                    </div>#}
+{#                                </div>#}
+{##}
+{#                            </div>#}
+{##}
+{#                        </div>#}
+{##}
+{#                    </div>#}
+
+                </div>
+
+            </div>
+        </div>
+    </div><!-- Page Section End -->
+{% endblock %}
+{#    <!-- Brand Section Start -->#}
+{#    <div class="brand-section section mb-80 mb-lg-60 mb-md-60 mb-sm-60 mb-xs-40">#}
+{#        <div class="container-fluid">#}
+{#            <div class="row">#}
+{#                <div class="brand-slider">#}
+{##}
+{#                    <div class="brand-item col">#}
+{#                        <img src="assets/images/brands/brand-1.png" alt="">#}
+{#                    </div>#}
+{##}
+{#                    <div class="brand-item col">#}
+{#                        <img src="assets/images/brands/brand-2.png" alt="">#}
+{#                    </div>#}
+{##}
+{#                    <div class="brand-item col">#}
+{#                        <img src="assets/images/brands/brand-3.png" alt="">#}
+{#                    </div>#}
+{##}
+{#                    <div class="brand-item col">#}
+{#                        <img src="assets/images/brands/brand-4.png" alt="">#}
+{#                    </div>#}
+{##}
+{#                    <div class="brand-item col">#}
+{#                        <img src="assets/images/brands/brand-5.png" alt="">#}
+{#                    </div>#}
+{##}
+{#                    <div class="brand-item col">#}
+{#                        <img src="assets/images/brands/brand-6.png" alt="">#}
+{#                    </div>#}
+{##}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div><!-- Brand Section End -->#}
+
+{% block custom-js %}
+    <script src="{% static "js/basket.js" %}"></script>
+{% endblock %}

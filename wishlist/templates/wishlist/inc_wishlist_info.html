@@ -1,0 +1,5 @@
+{% load static %}
+<a href="{% url 'wishlist:view'%}" data-toggle="tooltip" data-placement="bottom" title="Список желаемого">
+    <img src="{% static 'images/icons/wishlist.png' %}" alt="Список желаемого">
+    <span>{{ wishlist_products_count }}</span>
+</a>
